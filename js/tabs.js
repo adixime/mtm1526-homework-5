@@ -1,23 +1,25 @@
 //Javascript Document
-
 $(document).ready(function () {
-
-
-	$('.tabs').load('tab1.html');
-
 	
-	$('.tab1 a').on('click',function (e) {
-		
-		$('.tabs').hide();
+	var tab1Content;
+  
+    $('.tabs').load('tab1.html', function (data) {
+  	  tab1Content = data;
 
-			$('.tabs').load('tab1.html', function(){
-				
-            $(this).slideDown(2000);
-        });
-
-
-			
-	});
+  	});
+  
+    $('.tab1 a').on('click',function (e) {
+        $('.tabs').hide();
+    
+   		if (tab1Content) {
+        	$('.tabs').html(tab1Content).slideDown(2000);
+    	} else {
+      	$('.tabs').load('tab1.html', function (data) {
+        	$(this).slideDown(2000);
+        	tab1Content = data;
+         }); 
+    }
+});
 	
 	
 	$('.tab2 a').on('click',function (e) {
@@ -52,3 +54,4 @@ $(document).ready(function () {
 	});
 	
 });
+
